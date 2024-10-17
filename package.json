@@ -1,0 +1,90 @@
+{
+  "name": "neocore-react-ui",
+  "version": "0.1.2745",
+  "private": true,
+  "homepage": ".",
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "dateformat": "^2.0.0",
+    "deep-equal": "^1.0.1",
+    "immutable": "^3.8.1",
+    "lodash": "^4.17.21",
+    "moment-timezone": "^0.5.43",
+    "postcss": "^8.4.31",
+    "prop-types": "^15.5.10",
+    "raf": "^3.4.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^5.3.0",
+    "redux": "^4.0.1",
+    "redux-actions": "^2.2.1",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "node ./scripts/deploy.js",
+    "test": "react-scripts test --env=jsdom",
+    "test-all": "CI=true npm test",
+    "coverage": "npm test -- --coverage --watchAll=false; exit 0",
+    "eject": "react-scripts eject",
+    "test:debug": "react-scripts --inspect-brk test --runInBand --env=jsdom",
+    "test:ci": "mkdir -p report && CI=true JEST_JUNIT_OUTPUT_FILE=report/junit.xml react-scripts test --env=jsdom --coverage --testResultsProcessor ./node_modules/jest-junit; exit 0",
+    "lint:report": "mkdir -p report && npm run lint:js-report && npm run lint:style-report; exit 0",
+    "lint:js-report": "eslint -f checkstyle src > report/eslint.xml; exit 0",
+    "lint:style-report": "stylelint --custom-formatter=scripts/stylelintCheckStyleFormatter --custom-syntax postcss-scss src/**/*.scss > report/stylelint.xml; exit 0",
+    "lint": "npm run lint:js && npm run lint:style",
+    "lint:style": "stylelint --fix --custom-formatter=scripts/stylelintCheckStyleFormatter --custom-syntax postcss-scss src/**/*.scss",
+    "lint:js": "eslint -f checkstyle src",
+    "precommit": "lint-staged"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/test/**",
+      "!src/setupProxy.js",
+      "!src/setupTests.js",
+      "!src/setupTestsEnv.js",
+      "!src/index.js"
+    ],
+    "moduleNameMapper": {
+      "^react$": "<rootDir>/node_modules/react",
+      "^react-redux$": "<rootDir>/node_modules/react-redux"
+    },
+    "resetMocks": false
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint"
+    ],
+    "public/**/*.css": [
+      "stylelint"
+    ],
+    "src/**/*.css": [
+      "stylelint"
+    ],
+    "src/**/*.scss": [
+      "stylelint --custom-syntax postcss-scss"
+    ]
+  },
+  "alias": {
+    "react": "node_modules/react",
+    "react-redux": "node_modules/react-redux",
+    "react-router-dom": "node_modules/react-router-dom"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
